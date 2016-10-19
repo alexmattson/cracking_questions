@@ -138,4 +138,16 @@ describe "string_rotation?" do
     str2 = "erbowatttle"
     expect(string_rotation?(str1, str2)).to eq(false)
   end
+
+  it "returns false if str1 is not the same size as str2" do
+    str1 = "waterbottle"
+    str2 = "erbowatt"
+    expect(string_rotation?(str1, str2)).to eq(false)
+  end
+
+  it "returns false with empty strings" do
+    str1 = ""
+    str2 = ""
+    expect(string_rotation?(str1, str2)).to eq(false)
+  end
 end

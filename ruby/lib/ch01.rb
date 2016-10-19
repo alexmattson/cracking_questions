@@ -94,7 +94,7 @@ end
 # pale,   bale    -> true
 # pale,   bake    -> false
 
-def one_away(str1, str2, len1 = str1.length, len2 = str2.length)
+def one_away(str1, str2)
   return true if levenshtein_distance(str1, str2) <= 1
   false
 end
@@ -203,5 +203,6 @@ end
 # rotation of 'erbottlewat')
 
 def string_rotation?(str1, str2)
+  return false if str1.length != str2.length || str1.length == 0
   is_substring?(str1 + str1, str2)
 end

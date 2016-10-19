@@ -34,26 +34,30 @@ export const permutaion = (str1, str2) => {
 // # EXAMPLE
 // # Input:    "Mr John Smith    ", 13
 // # Output:   "Mr%20John%20Smith"
-//
-// def urlify(str, len)
-//   current = str.length - 1
-//   current.downto(1) do |i|
-//     if i < len && current > i
-//       if str[i] == " "
-//         str[current] = '0'
-//         str[current - 1] = '2'
-//         str[current - 2] = '%'
-//         current -= 3
-//       else
-//         str[current] = str[i]
-//         current -= 1
-//       end
-//     end
-//   end
-//   str
-// end
-//
-//
+
+const splice = (str, idx, count, el) => {
+  return str.slice(0, idx) + el + str.slice(idx + count, str.length);
+};
+
+export const urlify = (str, len) => {
+  let current = str.length - 1;
+  for (let i = current; i > 0; i--) {
+    if (i < len && current > i) {
+      if (str[i] === " ") {
+        str = splice(str, current    , 1, '0');
+        str = splice(str, current - 1, 1, '2');
+        str = splice(str, current - 2, 1, '%');
+        current -= 3;
+      } else {
+        str = splice(str, current, 1, str[i]);
+        current -= 1;
+      }
+    }
+  }
+  return str;
+};
+
+
 // # 1.4 - Palindrome Permutation
 // #
 // # Given a string, write a function to check if it is a permutation of a palindrome.
@@ -64,26 +68,26 @@ export const permutaion = (str1, str2) => {
 // # EXAMPLE
 // # input:    "Tact Coa"
 // # output:   True (permutations: "taco cat", "acto cta", ect.)
-//
-// def palindrome_permutation(str)
-//   no_spaces   = str.delete(" ").downcase.split("")
-//   odds        = 0
-//   letter      = Hash.new
-//
-//   no_spaces.each do |l|
-//     if letter[l]
-//       letter[l] += 1
-//       (letter[l] % 2 == 0) ? (odds -= 1) : (odds += 1)
-//     else
-//       letter[l] = 1
-//       odds += 1
-//     end
-//   end
-//
-//   odds <= 1
-// end
-//
-//
+
+export const palindromePermutation = (str) => {
+  let odds    = 0;
+  let letters = {};
+
+  str.toLowerCase().split('').forEach(l => {
+    if (l !== " ") {
+      if (letters[l]) {
+        letters[l] += 1;
+        (letters[l] % 2 === 0) ? (odds -= 1) : (odds += 1);
+      } else {
+        letters[l] = 1;
+        odds += 1;
+      }
+    }
+  });
+
+  return odds <= 1;
+};
+
 // # 1.5 - One Away
 // #
 // # There are three types if edits that can be preformed on strings: insert a
@@ -95,26 +99,26 @@ export const permutaion = (str1, str2) => {
 // # pales,  pale    -> true
 // # pale,   bale    -> true
 // # pale,   bake    -> false
-//
-// def one_away(str1, str2, len1 = str1.length, len2 = str2.length)
-//   return true if levenshtein_distance(str1, str2) <= 1
-//   false
-// end
-//
-// def levenshtein_distance(str1, str2, len1 = str1.length, len2 = str2.length)
-//   return len2 if len1 == 0
-//   return len1 if len2 == 0
-//
-//   cost = (str1[len1 - 1] == str2[len2 - 1]) ? 0 : 1
-//
-//   return [
-//     levenshtein_distance(str1, str2, len1 - 1, len2    ) + 1,
-//     levenshtein_distance(str1, str2, len1    , len2 - 1) + 1,
-//     levenshtein_distance(str1, str2, len1 - 1, len2 - 1) + cost
-//   ].min
-// end
-//
-//
+
+export const oneAway = (str1, str2) => {
+  if (levenshteinDistance(str1, str2) <= 1) { return true; }
+  return false;
+};
+
+const levenshteinDistance = (str1, str2, len1 = str1.length, len2 = str2.length) => {
+  if (len1 === 0) { return len2; }
+  if (len2 === 0) { return len1; }
+
+  let cost = (str1[len1 - 1] === str2[len2 - 1]) ? 0 : 1;
+
+  return Math.min(
+    levenshteinDistance(str1, str2, len1 - 1, len2    ) + 1,
+    levenshteinDistance(str1, str2, len1    , len2 - 1) + 1,
+    levenshteinDistance(str1, str2, len1 - 1, len2 - 1) + cost
+  );
+};
+
+
 // # 1.6 - String Compression
 // #
 // # Implement a method to perform basic string compression using the counts of
@@ -122,87 +126,94 @@ export const permutaion = (str1, str2) => {
 // # 'a2b1c5a3'. If the 'compressed' string would not become smaller than the
 // # originazl string, your method should retrun the original string. you can
 // # assumer the string has only uppercased and lowercase letters (a-z).
-//
-// def string_compression(str)
-//   final = ''
-//   current = str[0]
-//   count = 1
-//
-//   (1).upto(str.length) do |i|
-//     if str[i] === current
-//       count += 1
-//     else
-//       final << "#{current}#{count}"
-//       current = str[i]
-//       count = 1
-//     end
-//   end
-//
-//   final.length >= str.length ? str : final
-// end
-//
-//
+
+export const stringCompression = (str) => {
+  let final   = '';
+  let current = str[0];
+  let count   = 1;
+
+  for (let i = 1; i < str.length + 1; i++) {
+    if (str[i] === current) {
+      count += 1;
+    } else {
+      final += `${current}${count}`;
+      current = str[i];
+      count = 1;
+    }
+  }
+
+  if (final.length <= str.length) {
+    return final;
+  } else {
+    return str;
+  }
+};
+
 // # 1.7 - Rotate Matrix
 // #
 // # Given an image represented by an NxN matrix, where each pixel in the image is
 // # 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in
 // # place?
-//
-// def rotate_image(image, lvl = 0)
-//   len = (image.length - (lvl * 2))
-//   return image if len <= 0
-//
-//   (0 + lvl).upto((len + lvl) - 2) do |i|
-//     temp = image[lvl][i]
-//     j = (lvl + len) - 1
-//
-//     image[ lvl ][  i  ]   = image[j - i][ lvl ]
-//     image[j - i][ lvl ]   = image[  j  ][j - i]
-//     image[  j  ][j - i]   = image[  i  ][  j  ]
-//     image[  i  ][  j  ]   = temp
-//   end
-//
-//   return rotate_image(image, lvl += 1)
-// end
-//
-//
+
+export const rotateImage = (image, lvl = 0) => {
+  let len = (image.length - (lvl * 2));
+  if (len <= 0) { return image; }
+
+  for (let i = (0 + lvl); i < (len + lvl) - 1; i++) {
+    let temp = image[lvl][i];
+    let j = (lvl + len) - 1;
+
+    image[ lvl ][  i  ]   = image[j - i][ lvl ];
+    image[j - i][ lvl ]   = image[  j  ][j - i];
+    image[  j  ][j - i]   = image[  i  ][  j  ];
+    image[  i  ][  j  ]   = temp;
+  }
+
+  return rotateImage(image, lvl + 1);
+};
+
+
 // # 1.8 - Zero matrix
 // #
 // # Write an algorithm such that if an element in an MxN matrix is 0, it’s entire
 // # row and column are set to 0.
-//
-// def zero_matrix(matrix)
-//   changed = Set.new
-//
-//   matrix.each_with_index do |arr, row|
-//     zero = false
-//
-//     arr.each_with_index do |val, col|
-//       if val === 0
-//         unless changed.include?(col)
-//           zero = true
-//           matrix.map { |r| r[col] = 0 }
-//           changed.add(col)
-//         end
-//       end
-//     end
-//
-//     if zero
-//       new_arr = arr.map{|el| el = 0}
-//       matrix[row] = new_arr
-//     end
-//   end
-//
-//   matrix
-// end
-//
-//
+
+export const zeroMatrix = (matrix) => {
+  let changed = new Set();
+
+  matrix.forEach((arr, row) => {
+    let zero = false;
+
+    arr.forEach((val, col) => {
+      if (val === 0) {
+        if (!changed.has(val)) {
+          zero = true;
+          matrix.map(r => { r[col] = 0; });
+          changed.add(col);
+        }
+      }
+    });
+
+    if (zero) {
+      let newArr = arr.map( el =>  0 );
+      matrix[row] = newArr;
+    }
+  });
+
+  return matrix;
+};
+
 // # 1.9 - String Rotation
 // #
 // # Assume you have a method is_substring? which checks if one word is a substring
 // # of another. Given two strings, str1 and str2, write code to check if str2 is a
 // # rotation of str1 using only one call to is_substring? (e.g. 'waterbottle' is a
 // # rotation of 'erbottlewat')
+
+export const stringRotation = (str1, str2, isSubstring) => {
+  if (str1.length !== str2.length || str1.length === 0) { return false; }
+  return isSubstring(str1 + str1, str2);
+};
 //
 // def string_rotation?(str1, str2)
 //   is_substring?(str1 + str1, str2)
