@@ -163,3 +163,34 @@ def rotate_image(image, lvl = 0)
 
   return rotate_image(image, lvl += 1)
 end
+
+
+# 1.8 - Zero matrix
+#
+# Write an algorithm such that if an element in an MxN matrix is 0, it’s entire
+# row and column are set to 0.
+
+def zero_matrix(matrix)
+  changed = Set.new
+
+  matrix.each_with_index do |arr, row|
+    zero = false
+
+    arr.each_with_index do |val, col|
+      if val === 0
+        unless changed.include?(col)
+          zero = true
+          matrix.map { |r| r[col] = 0 }
+          changed.add(col)
+        end
+      end
+    end
+
+    if zero
+      new_arr = arr.map{|el| el = 0}
+      matrix[row] = new_arr
+    end
+  end
+
+  matrix
+end

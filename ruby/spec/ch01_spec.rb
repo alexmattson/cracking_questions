@@ -102,3 +102,21 @@ describe "rotate_image" do
     expect(rotate_image(image)).to eq(rotated_image)
   end
 end
+
+describe "zero_matrix" do
+  it "returns matrix with correct zeroed columns and rows" do
+    matrix = [
+      [1,2,3],
+      [0,2,3],
+      [1,2,3]
+    ]
+
+    zeroed_matrix = [
+      [0,2,3],
+      [0,0,0],
+      [0,2,3]
+    ]
+
+    expect(zero_matrix(matrix)).to eq(zeroed_matrix)
+  end
+end
