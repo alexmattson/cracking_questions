@@ -4,14 +4,7 @@
 // What if you cannot use additional data structure?
 
 export const isUnique = (str) => {
-  for (let i = 0; i < str.length - 1; i++) {
-    let count = 0;
-    for (let j = i + 1; j < str.length; j++) {
-      if (str[i] === str[j]) { count += 1; }
-    }
-    if (count > 0) { return false; }
-  }
-  return true;
+
 };
 
 
@@ -21,7 +14,7 @@ export const isUnique = (str) => {
 // # other.
 
 export const permutaion = (str1, str2) => {
-  return str1.split('').sort().join('') === str2.split('').sort().join('');
+
 };
 
 
@@ -35,26 +28,8 @@ export const permutaion = (str1, str2) => {
 // # Input:    "Mr John Smith    ", 13
 // # Output:   "Mr%20John%20Smith"
 
-const splice = (str, idx, count, el) => {
-  return str.slice(0, idx) + el + str.slice(idx + count, str.length);
-};
-
 export const urlify = (str, len) => {
-  let current = str.length - 1;
-  for (let i = current; i > 0; i--) {
-    if (i < len && current > i) {
-      if (str[i] === " ") {
-        str = splice(str, current    , 1, '0');
-        str = splice(str, current - 1, 1, '2');
-        str = splice(str, current - 2, 1, '%');
-        current -= 3;
-      } else {
-        str = splice(str, current, 1, str[i]);
-        current -= 1;
-      }
-    }
-  }
-  return str;
+
 };
 
 
@@ -70,22 +45,7 @@ export const urlify = (str, len) => {
 // # output:   True (permutations: "taco cat", "acto cta", ect.)
 
 export const palindromePermutation = (str) => {
-  let odds    = 0;
-  let letters = {};
 
-  str.toLowerCase().split('').forEach(l => {
-    if (l !== " ") {
-      if (letters[l]) {
-        letters[l] += 1;
-        (letters[l] % 2 === 0) ? (odds -= 1) : (odds += 1);
-      } else {
-        letters[l] = 1;
-        odds += 1;
-      }
-    }
-  });
-
-  return odds <= 1;
 };
 
 // # 1.5 - One Away
@@ -101,21 +61,7 @@ export const palindromePermutation = (str) => {
 // # pale,   bake    -> false
 
 export const oneAway = (str1, str2) => {
-  if (levenshteinDistance(str1, str2) <= 1) { return true; }
-  return false;
-};
 
-const levenshteinDistance = (str1, str2, len1 = str1.length, len2 = str2.length) => {
-  if (len1 === 0) { return len2; }
-  if (len2 === 0) { return len1; }
-
-  let cost = (str1[len1 - 1] === str2[len2 - 1]) ? 0 : 1;
-
-  return Math.min(
-    levenshteinDistance(str1, str2, len1 - 1, len2    ) + 1,
-    levenshteinDistance(str1, str2, len1    , len2 - 1) + 1,
-    levenshteinDistance(str1, str2, len1 - 1, len2 - 1) + cost
-  );
 };
 
 
@@ -128,26 +74,9 @@ const levenshteinDistance = (str1, str2, len1 = str1.length, len2 = str2.length)
 // # assumer the string has only uppercased and lowercase letters (a-z).
 
 export const stringCompression = (str) => {
-  let final   = '';
-  let current = str[0];
-  let count   = 1;
 
-  for (let i = 1; i < str.length + 1; i++) {
-    if (str[i] === current) {
-      count += 1;
-    } else {
-      final += `${current}${count}`;
-      current = str[i];
-      count = 1;
-    }
-  }
-
-  if (final.length <= str.length) {
-    return final;
-  } else {
-    return str;
-  }
 };
+
 
 // # 1.7 - Rotate Matrix
 // #
@@ -155,21 +84,8 @@ export const stringCompression = (str) => {
 // # 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in
 // # place?
 
-export const rotateImage = (image, lvl = 0) => {
-  let len = (image.length - (lvl * 2));
-  if (len <= 0) { return image; }
+export const rotateImage = (image) => {
 
-  for (let i = (0 + lvl); i < (len + lvl) - 1; i++) {
-    let temp = image[lvl][i];
-    let j = (lvl + len) - 1;
-
-    image[ lvl ][  i  ]   = image[j - i][ lvl ];
-    image[j - i][ lvl ]   = image[  j  ][j - i];
-    image[  j  ][j - i]   = image[  i  ][  j  ];
-    image[  i  ][  j  ]   = temp;
-  }
-
-  return rotateImage(image, lvl + 1);
 };
 
 
@@ -179,29 +95,9 @@ export const rotateImage = (image, lvl = 0) => {
 // # row and column are set to 0.
 
 export const zeroMatrix = (matrix) => {
-  let changed = new Set();
 
-  matrix.forEach((arr, row) => {
-    let zero = false;
-
-    arr.forEach((val, col) => {
-      if (val === 0) {
-        if (!changed.has(val)) {
-          zero = true;
-          matrix.map(r => { r[col] = 0; });
-          changed.add(col);
-        }
-      }
-    });
-
-    if (zero) {
-      let newArr = arr.map( el =>  0 );
-      matrix[row] = newArr;
-    }
-  });
-
-  return matrix;
 };
+
 
 // # 1.9 - String Rotation
 // #
@@ -211,10 +107,5 @@ export const zeroMatrix = (matrix) => {
 // # rotation of 'erbottlewat')
 
 export const stringRotation = (str1, str2, isSubstring) => {
-  if (str1.length !== str2.length || str1.length === 0) { return false; }
-  return isSubstring(str1 + str1, str2);
+
 };
-//
-// def string_rotation?(str1, str2)
-//   is_substring?(str1 + str1, str2)
-// end
