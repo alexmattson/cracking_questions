@@ -9,7 +9,6 @@ def is_unique?(str)
     (i + 1..str.length).each { |j| count += 1 if str[i] == str[j] }
     return false if count > 0
   end
-  "123".split('')
   true
 end
 
@@ -198,9 +197,9 @@ end
 
 # 1.9 - String Rotation
 #
-# Assume you have a method isSubstring? which checks if one word is a substring
+# Assume you have a method is_substring? which checks if one word is a substring
 # of another. Given two strings, str1 and str2, write code to check if str2 is a
-# rotation of str1 using only one call to isSubstring? (e.g. 'waterbottle' is a
+# rotation of str1 using only one call to is_substring? (e.g. 'waterbottle' is a
 # rotation of 'erbottlewat')
 
 def string_rotation?(str1, str2)
