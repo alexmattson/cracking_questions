@@ -9,6 +9,7 @@ def is_unique?(str)
     (i + 1..str.length).each { |j| count += 1 if str[i] == str[j] }
     return false if count > 0
   end
+  "123".split('')
   true
 end
 
@@ -137,4 +138,28 @@ def string_compression(str)
   end
 
   final.length >= str.length ? str : final
+end
+
+
+# 1.7 - Rotate Matrix
+#
+# Given an image represented by an NxN matrix, where each pixel in the image is
+# 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in
+# place?
+
+def rotate_image(image, lvl = 0)
+  len = (image.length - (lvl * 2))
+  return image if len <= 0
+
+  (0 + lvl).upto((len + lvl) - 2) do |i|
+    temp = image[lvl][i]
+    j = (lvl + len) - 1
+
+    image[ lvl ][  i  ]   = image[j - i][ lvl ]
+    image[j - i][ lvl ]   = image[  j  ][j - i]
+    image[  j  ][j - i]   = image[  i  ][  j  ]
+    image[  i  ][  j  ]   = temp
+  end
+
+  return rotate_image(image, lvl += 1)
 end

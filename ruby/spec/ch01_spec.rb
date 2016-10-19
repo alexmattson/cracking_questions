@@ -81,3 +81,24 @@ describe "string_compression" do
   end
 
 end
+
+describe "rotate_image" do
+
+  it "should rotate an image" do
+    image = [
+      [1,2,3,4],
+      [1,2,3,4],
+      [1,2,3,4],
+      [1,2,3,4]
+    ]
+
+    rotated_image = [
+      [1,1,1,1],
+      [2,2,2,2],
+      [3,3,3,3],
+      [4,4,4,4]
+    ]
+
+    expect(rotate_image(image)).to eq(rotated_image)
+  end
+end
