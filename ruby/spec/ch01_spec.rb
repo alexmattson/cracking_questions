@@ -26,3 +26,12 @@ describe "urlify" do
     expect(urlify("Mr John Smith    ", 13)).to eq("Mr%20John%20Smith")
   end
 end
+
+describe "palindrome_permutation" do
+  it "returns true is str is palindrome permutation" do
+    expect(palindrome_permutation("Tact Coa")).to eq(true)
+  end
+  it "returns false is str is not palindrome permutation" do
+    expect(palindrome_permutation("Tacp Coa")).to eq(false)
+  end
+end

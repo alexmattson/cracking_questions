@@ -63,5 +63,19 @@ end
 # output:   True (permutations: "taco cat", "acto cta", ect.)
 
 def palindrome_permutation(str)
+  no_spaces   = str.delete(" ").downcase.split("")
+  odds        = 0
+  letter      = Hash.new
 
-end 
+  no_spaces.each do |l|
+    if letter[l]
+      letter[l] += 1
+      (letter[l] % 2 == 0) ? (odds -= 1) : (odds += 1)
+    else
+      letter[l] = 1
+      odds += 1
+    end
+  end
+
+  odds <= 1
+end
