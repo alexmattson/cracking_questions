@@ -68,3 +68,16 @@ describe "one_away" do
   end
 
 end
+
+
+describe "string_compression" do
+
+  it "returns correctly compressed string" do
+    expect(string_compression('aabcccccaaa')).to eq('a2b1c5a3')
+  end
+
+  it "returns original string if compressed is not shorter" do
+    expect(string_compression('abc')).to eq('abc')
+  end
+
+end

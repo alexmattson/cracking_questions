@@ -120,3 +120,21 @@ end
 # 'a2b1c5a3'. If the 'compressed' string would not become smaller than the
 # originazl string, your method should retrun the original string. you can
 # assumer the string has only uppercased and lowercase letters (a-z).
+
+def string_compression(str)
+  final = ''
+  current = str[0]
+  count = 1
+
+  (1).upto(str.length) do |i|
+    if str[i] === current
+      count += 1
+    else
+      final << "#{current}#{count}"
+      current = str[i]
+      count = 1
+    end
+  end
+
+  final.length >= str.length ? str : final
+end
