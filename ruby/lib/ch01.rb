@@ -194,3 +194,15 @@ def zero_matrix(matrix)
 
   matrix
 end
+
+
+# 1.9 - String Rotation
+#
+# Assume you have a method isSubstring? which checks if one word is a substring
+# of another. Given two strings, str1 and str2, write code to check if str2 is a
+# rotation of str1 using only one call to isSubstring? (e.g. 'waterbottle' is a
+# rotation of 'erbottlewat')
+
+def string_rotation?(str1, str2)
+  is_substring?(str1 + str1, str2)
+end

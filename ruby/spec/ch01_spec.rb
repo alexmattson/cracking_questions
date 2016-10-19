@@ -120,3 +120,22 @@ describe "zero_matrix" do
     expect(zero_matrix(matrix)).to eq(zeroed_matrix)
   end
 end
+
+describe "string_rotation?" do
+
+  def is_substring?(str1, str2)
+    str1.include?(str2)
+  end
+
+  it "returns true if str2 is a string rotation of str1" do
+    str1 = "waterbottle"
+    str2 = "erbottlewat"
+    expect(string_rotation?(str1, str2)).to eq(true)
+  end
+
+  it "returns false if str2 is not a string rotation of str1" do
+    str1 = "waterbottle"
+    str2 = "erbowatttle"
+    expect(string_rotation?(str1, str2)).to eq(false)
+  end
+end
