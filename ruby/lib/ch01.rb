@@ -51,6 +51,7 @@ def urlify(str, len)
   str
 end
 
+
 # 1.4 - Palindrome Permutation
 #
 # Given a string, write a function to check if it is a permutation of a palindrome.
@@ -79,3 +80,43 @@ def palindrome_permutation(str)
 
   odds <= 1
 end
+
+
+# 1.5 - One Away
+#
+# There are three types if edits that can be preformed on strings: insert a
+# character, remove a character, or replace a character. Given two strings,
+# write a function to check if they are one edit (or zero edits) away.
+#
+# EXAMPLE
+# pale,   ple     -> true
+# pales,  pale    -> true
+# pale,   bale    -> true
+# pale,   bake    -> false
+
+def one_away(str1, str2, len1 = str1.length, len2 = str2.length)
+  return true if levenshtein_distance(str1, str2) <= 1
+  false
+end
+
+def levenshtein_distance(str1, str2, len1 = str1.length, len2 = str2.length)
+  return len2 if len1 == 0
+  return len1 if len2 == 0
+
+  cost = (str1[len1 - 1] == str2[len2 - 1]) ? 0 : 1
+
+  return [
+    levenshtein_distance(str1, str2, len1 - 1, len2    ) + 1,
+    levenshtein_distance(str1, str2, len1    , len2 - 1) + 1,
+    levenshtein_distance(str1, str2, len1 - 1, len2 - 1) + cost
+  ].min
+end
+
+
+# 1.6 - String Compression
+#
+# Implement a method to perform basic string compression using the counts of
+# repeated characters. For example, the strinfg 'aabcccccaaa' would become
+# 'a2b1c5a3'. If the 'compressed' string would not become smaller than the
+# originazl string, your method should retrun the original string. you can
+# assumer the string has only uppercased and lowercase letters (a-z).
